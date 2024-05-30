@@ -30,11 +30,12 @@ print()
 # чтение всех атрибутов в дереве
 for branch in root:
     if branch.attrib['name'] == 'General':
-        print(f'{branch.tag = } ... {branch.attrib = }')
         for sub_branch in branch:
-            print(f'... {sub_branch.tag = } ... {sub_branch.attrib = }')
-            # if sub_branch.attrib.get['Server host']:
-            #     print('!!!!!!!!')
+            if sub_branch.attrib['key'] == 'Server host':
+                print(f'{branch.tag = } ... {branch.attrib = }')
+                print(f'... {sub_branch.tag = } ... {sub_branch.attrib = }')
+                # if sub_branch.attrib.get['Server host']:
+                #     print('!!!!!!!!')
 print()
 
 
