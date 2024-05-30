@@ -11,14 +11,16 @@ file_xlsx = 'test1.xlsx'
 # wb_s = wb.active
 # wb_s.append(["IP", "Name"])
 
-root_node = ET.parse(file_nxs).getroot()
-# root_node = ET.parse('guid.xml').getroot()
-# print(f'{root_node.tag = } ... {root_node.attrib = }')
+tree = ET.parse(file_nxs)
+root = tree.getroot()
+# print(root[0][1].attrib)
+print()
 
-for branch in root_node:
+for branch in root:
     if branch.attrib['name'] == 'General':
-        print(f'{branch.tag = } ... {branch.attrib = }')
-        print(f'{root_node[0][6].text = }')
+        # print(f'{branch.tag = } ... {branch.attrib = }')
+        print(f'{root[0][1].attrib = }')
+        print(root[0][1].attrib)
 
 # wb.save(file_xlsx)
 # wb.close()
