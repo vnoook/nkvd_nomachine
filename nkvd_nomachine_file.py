@@ -13,14 +13,36 @@ file_xlsx = 'test1.xlsx'
 
 tree = ET.parse(file_nxs)
 root = tree.getroot()
+
+# чтение конкретного атрибута
 # print(root[0][1].attrib)
 print()
 
+# # чтение всех атрибутов в дереве
+# for branch in root:
+#     print(f'{branch.tag = } ... {branch.attrib = }')
+#     for sub_branch in branch:
+#         print(f'... {sub_branch.tag = } ... {sub_branch.attrib = }')
+#         # if sub_branch.attrib.get['Server host']:
+#         #     print('!!!!!!!!')
+# print()
+
+# чтение всех атрибутов в дереве
 for branch in root:
     if branch.attrib['name'] == 'General':
-        # print(f'{branch.tag = } ... {branch.attrib = }')
-        print(f'{root[0][1].attrib = }')
-        print(root[0][1].attrib)
+        print(f'{branch.tag = } ... {branch.attrib = }')
+        for sub_branch in branch:
+            print(f'... {sub_branch.tag = } ... {sub_branch.attrib = }')
+            # if sub_branch.attrib.get['Server host']:
+            #     print('!!!!!!!!')
+print()
+
+
+# for branch in root:
+#     if branch.attrib['name'] == 'General':
+#         # print(f'{branch.tag = } ... {branch.attrib = }')
+#         print(f'{root[0][1].attrib = }')
+#         print(root[0][1].attrib)
 
 # wb.save(file_xlsx)
 # wb.close()
