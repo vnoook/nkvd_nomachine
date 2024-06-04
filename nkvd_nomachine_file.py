@@ -1,6 +1,7 @@
 # в файле nxs нужно найти строку "Server host" в группе "General"
 # например, группа <group name="General" > и строка "<option key="Server host" value="172.16.40.30" />"
 
+import os
 import xml.etree.ElementTree as ET
 import openpyxl
 
@@ -23,37 +24,18 @@ def get_ip_from_nxs(file_nxs):
 file_nxs = 'res/test1.nxs'
 file_xlsx = 'test1.xlsx'
 get_ip_from_nxs('res/test1.nxs')
+etx_nxs = '.nxs'
 # print(get_ip_from_nxs('res/test1.nxs'))
 # print(type(get_ip_from_nxs(file_nxs)))
+
+for data_of_scan in os.scandir():
+    if data_of_scan.is_file() and os.path.splitext(os.path.split(data_of_scan)[1])[1] == etx_nxs:
+        print(data_of_scan)
+        # os.remove(data_of_scan)
 
 # wb = openpyxl.Workbook()
 # wb_s = wb.active
 # wb_s.append(["IP", "Name"])
 
-
-# for branch in root:
-#     if branch.attrib['name'] == 'General':
-#         # print(f'{branch.tag = } ... {branch.attrib = }')
-#         print(f'{root[0][1].attrib = }')
-#         print(root[0][1].attrib)
-
-# wb.save(file_xlsx)
-# wb.close()
-
-# print('Done')
-
-# for tag in root_node.findall('Department'):
-#     id_value = tag.get('ID')
-#     if not id_value:
-#         id_value = 'UNKNOWN DATA'
-#         print(id_value)
-#
-#     name_value = tag.get('Name')
-#     if not name_value:
-#         name_value = 'UNKNOWN DATA'
-#         print(name_value)
-#
-#     wb_s.append([id_value, name_value])
-#
 # wb.save(file_xlsx)
 # wb.close()
