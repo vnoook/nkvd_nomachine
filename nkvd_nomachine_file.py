@@ -17,11 +17,13 @@ def get_ip_from_nxs(file_nxs):
                 key = sub_branch.attrib.get('key')
                 val = sub_branch.attrib.get('value')
                 if (key == 'Server host') and val:
+                    # print(os.path.split(file_nxs)[1])
                     rez = (file_nxs, sub_branch.attrib.get('value'))
     print(rez)
     return rez
 
 file_nxs = 'res/test1.nxs'
+dir_nxs = 'res/'
 file_xlsx = 'test1.xlsx'
 get_ip_from_nxs('res/test1.nxs')
 etx_nxs = '.nxs'
