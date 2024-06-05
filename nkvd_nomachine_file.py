@@ -47,20 +47,14 @@ for data_of_scan in os.scandir():
         ip_addr = get_ip_from_nxs(data_of_scan.name)[1]
         name_file = get_ip_from_nxs(data_of_scan.name)[0]
 
-        # print(name_file)  # file path
-        # print(os.path.splitext(os.path.split(data_of_scan)[1]))  # file,ext
-        # print(os.path.splitext(os.path.split(data_of_scan)[1])[0])  # file
-        # print(os.path.splitext(os.path.split(data_of_scan)[1])[1])  # ext
-        # print()
-
         print()
-        print(ip_addr, name_file, dict_data_nxs_files.get(ip_addr))
+        print(ip_addr,' --- ', name_file)
         if dict_data_nxs_files.get(ip_addr) is None:
-            print('такого нет', dict_data_nxs_files.get(ip_addr))
+            print('такого ключа нет ---', dict_data_nxs_files.get(ip_addr))
             dict_data_nxs_files[ip_addr] = []
         else:
-            dict_data_nxs_files[ip_addr] = dict_data_nxs_files[ip_addr].append([ip_addr, name_file])
-            print('такой есть', dict_data_nxs_files.get(ip_addr))
+            print('такой есть ---', dict_data_nxs_files.get(ip_addr))
+            dict_data_nxs_files[ip_addr].append(name_file)
 
         wb_s.append([ip_addr, name_file])
 
@@ -71,3 +65,9 @@ wb.close()
 print()
 print()
 print(dict_data_nxs_files, sep='\n')
+
+# print(name_file)  # file path
+# print(os.path.splitext(os.path.split(data_of_scan)[1]))  # file,ext
+# print(os.path.splitext(os.path.split(data_of_scan)[1])[0])  # file
+# print(os.path.splitext(os.path.split(data_of_scan)[1])[1])  # ext
+# print()
