@@ -5,10 +5,10 @@ import os
 import xml.etree.ElementTree as ET
 import openpyxl
 
-file_nxs = 'res/test1.nxs'
 dir_nxs = r'res/'
+ext_nxs = '.nxs'
 file_xlsx = 'test1.xlsx'
-etx_nxs = '.nxs'
+dict_data_nxs_files = {}
 
 
 # функция чтения файла nxs, формат xml
@@ -34,15 +34,40 @@ def get_ip_from_nxs(file: str) -> tuple:
     return rez
 
 
+# создаётся эксель
 wb = openpyxl.Workbook()
 wb_s = wb.active
 wb_s.append(['IP', 'NAME'])
 
+# переход в папку для файлов и поиск в ней файлов
 os.chdir(os.path.join(os.path.dirname(os.path.realpath(__file__)), dir_nxs))
 for data_of_scan in os.scandir():
-    if data_of_scan.is_file() and os.path.splitext(os.path.split(data_of_scan)[1])[1] == etx_nxs:
-        wb_s.append([get_ip_from_nxs(data_of_scan.name)[1], get_ip_from_nxs(data_of_scan.name)[0]])
+    # если это файл и расширение, то из этого файла берутся данные
+    if data_of_scan.is_file() and os.path.splitext(os.path.split(data_of_scan)[1])[1] == ext_nxs:
+        ip_addr = get_ip_from_nxs(data_of_scan.name)[1]
+        name_file = get_ip_from_nxs(data_of_scan.name)[0]
+
+        # print(name_file)  # file path
+        # print(os.path.splitext(os.path.split(data_of_scan)[1]))  # file,ext
+        # print(os.path.splitext(os.path.split(data_of_scan)[1])[0])  # file
+        # print(os.path.splitext(os.path.split(data_of_scan)[1])[1])  # ext
+        # print()
+
+        print()
+        print(ip_addr, name_file, dict_data_nxs_files.get(ip_addr))
+        if dict_data_nxs_files.get(ip_addr) is None:
+            print('такого нет', dict_data_nxs_files.get(ip_addr))
+            dict_data_nxs_files[ip_addr] = []
+        else:
+            dict_data_nxs_files[ip_addr] = dict_data_nxs_files[ip_addr].append([ip_addr, name_file])
+            print('такой есть', dict_data_nxs_files.get(ip_addr))
+
+        wb_s.append([ip_addr, name_file])
 
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 wb.save(file_xlsx)
 wb.close()
+
+print()
+print()
+print(dict_data_nxs_files, sep='\n')
