@@ -5,6 +5,11 @@ import os
 import xml.etree.ElementTree as ET
 import openpyxl
 
+file_nxs = 'res/test1.nxs'
+dir_nxs = r'res/'
+file_xlsx = 'test1.xlsx'
+etx_nxs = '.nxs'
+
 
 # функция чтения файла nxs, формат xml
 def get_ip_from_nxs(file: str) -> tuple:
@@ -28,12 +33,6 @@ def get_ip_from_nxs(file: str) -> tuple:
                     rez = (file, sub_branch.attrib.get('value'))
     return rez
 
-
-file_nxs = 'res/test1.nxs'
-dir_nxs = r'res/'
-file_xlsx = 'test1.xlsx'
-get_ip_from_nxs('res/test1.nxs')
-etx_nxs = '.nxs'
 
 wb = openpyxl.Workbook()
 wb_s = wb.active
