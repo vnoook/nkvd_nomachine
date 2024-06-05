@@ -54,7 +54,7 @@ for data_of_scan in os.scandir():
             dict_data_nxs_files[ip_addr] = []
         else:
             print('такой есть ---', dict_data_nxs_files.get(ip_addr))
-            dict_data_nxs_files[ip_addr].append(name_file)
+            dict_data_nxs_files[ip_addr].append(os.path.splitext(os.path.split(name_file)[1])[0])
 
         wb_s.append([ip_addr, name_file])
 
