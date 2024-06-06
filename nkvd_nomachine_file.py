@@ -35,8 +35,10 @@ def get_ip_from_nxs(file: str) -> tuple:
     return rez
 
 
+# функция извлечения из имени файла подстроки до символа "("
 def spliter_name(string_name: str) -> str:
-    return string_name.split('(')[0]
+    print(string_name, '===', string_name.split('('), '===', string_name.split('(')[0])
+    return string_name.split('(',1)[0]
 
 
 # создаётся эксель
@@ -75,8 +77,8 @@ print()
 for key_ip, val_names in dict_data_nxs_files.items():
     print(key_ip, val_names)
     for name in val_names:
-        print('.......', name, '.......', spliter_name(name))
-
+        print(name)
+        print()
 
 # # сравнение имён файлов между именем архива и именем csv файла, они должны почти совпадать
 # diff_ratio_file_names = difflib.SequenceMatcher(
