@@ -4,7 +4,7 @@
 import os
 import xml.etree.ElementTree as ET
 import openpyxl
-import difflib
+# import difflib
 
 dir_nxs = r'res/'
 ext_nxs = '.nxs'
@@ -15,7 +15,7 @@ dict_data_nxs_files = {}
 # функция чтения файла nxs, формат xml
 def get_ip_from_nxs(file: str) -> tuple:
     """
-    функция чтения файла nxs (формат xml)
+    Функция чтения файла nxs (формат xml)
     берёт из файла поле "Server host"
     выдаёт кортеж - файл в котором ищется и ИП-адрес подключения
     """
@@ -56,11 +56,11 @@ for data_of_scan in os.scandir():
         # print(ip_addr,' --- ', name_file)
         if dict_data_nxs_files.get(ip_addr) is None:
             # print('такого ключа нет ---', dict_data_nxs_files.get(ip_addr))
-            dict_data_nxs_files[ip_addr] = [os.path.splitext(os.path.split(name_file)[1])[0]]
+            dict_data_nxs_files[ip_addr] = {os.path.splitext(os.path.split(name_file)[1])[0]}
         else:
             # print('такой есть ---', dict_data_nxs_files.get(ip_addr))
             # print(ip_addr, os.path.splitext(os.path.split(name_file)[1])[0])
-            dict_data_nxs_files[ip_addr].append(os.path.splitext(os.path.split(name_file)[1])[0])
+            dict_data_nxs_files[ip_addr].add(os.path.splitext(os.path.split(name_file)[1])[0])
 
         wb_s.append([ip_addr, name_file])
 
