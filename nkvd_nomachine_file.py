@@ -37,8 +37,8 @@ def get_ip_from_nxs(file: str) -> tuple:
 
 # функция извлечения из имени файла подстроки до символа "("
 def spliter_name(string_name: str) -> str:
-    print(string_name, '===', string_name.split('('), '===', string_name.split('(')[0])
-    return string_name.split('(',1)[0]
+    # print(string_name, '===', string_name.split('(', 1), '===', string_name.split('(', 1)[0])
+    return string_name.split('(', 1)[0]
 
 
 # создаётся эксель
@@ -52,33 +52,41 @@ for data_of_scan in os.scandir():
     # если это файл и расширение, то из этого файла берутся данные
     if data_of_scan.is_file() and os.path.splitext(os.path.split(data_of_scan)[1])[1] == ext_nxs:
         ip_addr = get_ip_from_nxs(data_of_scan.name)[1].strip()
-        name_file = spliter_name(get_ip_from_nxs(data_of_scan.name)[0].strip())
+        full_name_file = get_ip_from_nxs(data_of_scan.name)[0].strip()
+        name_file = os.path.splitext(os.path.split(full_name_file)[1])[0]
+        short_name_file = spliter_name(name_file)
 
         # print()
-        # print(ip_addr,' --- ', name_file)
+        # print(ip_addr,' --- ', short_name_file)
         if dict_data_nxs_files.get(ip_addr) is None:
             # print('такого ключа нет ---', dict_data_nxs_files.get(ip_addr))
-            dict_data_nxs_files[ip_addr] = {os.path.splitext(os.path.split(name_file)[1])[0]}
+            dict_data_nxs_files[ip_addr] = {os.path.splitext(os.path.split(short_name_file)[1])[0]}
         else:
             # print('такой есть ---', dict_data_nxs_files.get(ip_addr))
-            # print(ip_addr, os.path.splitext(os.path.split(name_file)[1])[0])
-            dict_data_nxs_files[ip_addr].add(os.path.splitext(os.path.split(name_file)[1])[0])
+            # print(ip_addr, os.path.splitext(os.path.split(short_name_file)[1])[0])
+            dict_data_nxs_files[ip_addr].add(os.path.splitext(os.path.split(short_name_file)[1])[0])
 
-        wb_s.append([ip_addr, name_file])
+        wb_s.append([ip_addr, short_name_file])
 
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 wb.save(file_xlsx)
 wb.close()
 
-# print()
-# print(dict_data_nxs_files)
-
 print()
-for key_ip, val_names in dict_data_nxs_files.items():
-    print(key_ip, val_names)
-    for name in val_names:
-        print(name)
-        print()
+print(dict_data_nxs_files)
+
+# print()
+# for key_ip, val_names in dict_data_nxs_files.items():
+#     print(key_ip, val_names)
+#     for name in val_names:
+#         print(name)
+#         # pass
+#     print()
+
+
+
+
+
 
 # # сравнение имён файлов между именем архива и именем csv файла, они должны почти совпадать
 # diff_ratio_file_names = difflib.SequenceMatcher(
