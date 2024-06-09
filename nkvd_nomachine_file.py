@@ -51,19 +51,16 @@ os.chdir(os.path.join(os.path.dirname(os.path.realpath(__file__)), dir_nxs))
 for data_of_scan in os.scandir():
     # если это файл и расширение, то из этого файла берутся данные
     if data_of_scan.is_file() and os.path.splitext(os.path.split(data_of_scan)[1])[1] == ext_nxs:
+        # подготовка переменных
         ip_addr = get_ip_from_nxs(data_of_scan.name)[1].strip()
         full_name_file = get_ip_from_nxs(data_of_scan.name)[0].strip()
         name_file = os.path.splitext(os.path.split(full_name_file)[1])[0]
         short_name_file = spliter_name(name_file)
-        print(ip_addr,' --- ', full_name_file, ' --- ', name_file,' --- ', short_name_file)
 
-        # print()
-        # print(ip_addr,' --- ', short_name_file)
+        # создание и добавление в словарь списка уже подготовленных коротких имён
         if dict_data_nxs_files.get(ip_addr) is None:
-            print('такого ключа нет ---', {os.path.splitext(os.path.split(short_name_file)[1])[0]})
             dict_data_nxs_files[ip_addr] = [short_name_file]
         else:
-            print('такой есть ---', dict_data_nxs_files.get(ip_addr))
             dict_data_nxs_files[ip_addr].append(short_name_file)
 
         wb_s.append([ip_addr, short_name_file])
