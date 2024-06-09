@@ -55,16 +55,16 @@ for data_of_scan in os.scandir():
         full_name_file = get_ip_from_nxs(data_of_scan.name)[0].strip()
         name_file = os.path.splitext(os.path.split(full_name_file)[1])[0]
         short_name_file = spliter_name(name_file)
+        print(ip_addr,' --- ', full_name_file, ' --- ', name_file,' --- ', short_name_file)
 
         # print()
         # print(ip_addr,' --- ', short_name_file)
         if dict_data_nxs_files.get(ip_addr) is None:
-            # print('такого ключа нет ---', dict_data_nxs_files.get(ip_addr))
-            dict_data_nxs_files[ip_addr] = {os.path.splitext(os.path.split(short_name_file)[1])[0]}
+            print('такого ключа нет ---', {os.path.splitext(os.path.split(short_name_file)[1])[0]})
+            dict_data_nxs_files[ip_addr] = [short_name_file]
         else:
-            # print('такой есть ---', dict_data_nxs_files.get(ip_addr))
-            # print(ip_addr, os.path.splitext(os.path.split(short_name_file)[1])[0])
-            dict_data_nxs_files[ip_addr].add(os.path.splitext(os.path.split(short_name_file)[1])[0])
+            print('такой есть ---', dict_data_nxs_files.get(ip_addr))
+            dict_data_nxs_files[ip_addr].append(short_name_file)
 
         wb_s.append([ip_addr, short_name_file])
 
