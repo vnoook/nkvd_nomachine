@@ -1,5 +1,6 @@
 # в файле nxs нужно найти строку "Server host" в группе "General"
 # например, группа <group name="General" > и строка "<option key="Server host" value="172.16.40.30" />"
+#                  <group name = "Login" >           <option key="Auth" value="++++++++++++" />
 
 import os
 import xml.etree.ElementTree as ET
