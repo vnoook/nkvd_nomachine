@@ -4,7 +4,6 @@
 import os
 import xml.etree.ElementTree as ET
 import openpyxl
-# import difflib
 
 dir_nxs = r'res/'
 ext_nxs = '.nxs'
@@ -60,18 +59,12 @@ for data_of_scan in os.scandir():
         name_file = os.path.splitext(os.path.split(full_name_file)[1])[0]
         short_name_file = spliter_name(name_file)
 
-
-
-
-
         # создание словаря с реальными файлами
         if dict_data_nxs_files.get(ip_addr) is None:
             dict_data_nxs_files[ip_addr] = [full_name_file]
         else:
             if 'Подключение' not in full_name_file:
                 dict_data_nxs_files[ip_addr].append(full_name_file)
-
-
 
         # создание и добавление в словарь списка уже подготовленных коротких имён
         if dict_data_nxs_files_good_names.get(ip_addr) is None:
@@ -86,26 +79,6 @@ os.chdir(os.path.dirname(os.path.realpath(__file__)))
 wb.save(file_xlsx)
 wb.close()
 
-# print()
-# print(len(dict_data_nxs_files_good_names), dict_data_nxs_files_good_names)
-# print(len(dict_data_nxs_files), dict_data_nxs_files)
-
-# print()
-# for key_ip, val_names in dict_data_nxs_files.items():
-#     print(key_ip, val_names)
-#     for name in val_names:
-#         print(name)
-#         # pass
-#     print()
-
-# print()
-# for key_ip, val_names in dict_data_nxs_files_good_names.items():
-#     print(key_ip, val_names)
-#     for name in val_names:
-#         print(name)
-#         # pass
-#     print()
-
 print()
 for key_ip, val_names in dict_data_nxs_files.items():
     new_name = ' '.join(dict_data_nxs_files_good_names[key_ip]).strip()
@@ -114,20 +87,3 @@ for key_ip, val_names in dict_data_nxs_files.items():
     print(dict_data_nxs_files_good_names[key_ip])
     print(new_name)
     print()
-
-
-
-
-# # сравнение имён файлов между именем архива и именем csv файла, они должны почти совпадать
-# diff_ratio_file_names = difflib.SequenceMatcher(
-#     None,
-#     take_file[2],
-#     self.parse_file_parts(file_in_zf.filename)[2]).ratio()
-# if diff_ratio_file_names < 0.9:
-#     pass
-
-# print(name_file)  # file path
-# print(os.path.splitext(os.path.split(data_of_scan)[1]))  # file,ext
-# print(os.path.splitext(os.path.split(data_of_scan)[1])[0])  # file
-# print(os.path.splitext(os.path.split(data_of_scan)[1])[1])  # ext
-# print()
