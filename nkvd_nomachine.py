@@ -108,9 +108,11 @@ wb.close()
 
 print()
 for key_ip, val_names in dict_data_nxs_files.items():
+    new_name = ' '.join(dict_data_nxs_files_good_names[key_ip]).strip()
     print(key_ip)
-    print(dict_data_nxs_files[key_ip])
+    # print(dict_data_nxs_files[key_ip])
     print(dict_data_nxs_files_good_names[key_ip])
+    print(new_name)
     print()
 
 
