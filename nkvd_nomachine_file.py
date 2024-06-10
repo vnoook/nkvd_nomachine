@@ -66,12 +66,10 @@ for data_of_scan in os.scandir():
 
         # создание словаря с реальными файлами
         if dict_data_nxs_files.get(ip_addr) is None:
-            dict_data_nxs_files_good_names[ip_addr] = {short_name_file}
+            dict_data_nxs_files[ip_addr] = [full_name_file]
         else:
-            if 'Подключение' not in short_name_file:
-                dict_data_nxs_files_good_names[ip_addr].add(short_name_file)
-
-
+            if 'Подключение' not in full_name_file:
+                dict_data_nxs_files[ip_addr].append(full_name_file)
 
 
 
@@ -89,17 +87,31 @@ wb.save(file_xlsx)
 wb.close()
 
 # print()
-# print(dict_data_nxs_files_good_names)
+# print(len(dict_data_nxs_files_good_names), dict_data_nxs_files_good_names)
+# print(len(dict_data_nxs_files), dict_data_nxs_files)
+
+# print()
+# for key_ip, val_names in dict_data_nxs_files.items():
+#     print(key_ip, val_names)
+#     for name in val_names:
+#         print(name)
+#         # pass
+#     print()
+
+# print()
+# for key_ip, val_names in dict_data_nxs_files_good_names.items():
+#     print(key_ip, val_names)
+#     for name in val_names:
+#         print(name)
+#         # pass
+#     print()
 
 print()
-for key_ip, val_names in dict_data_nxs_files_good_names.items():
-    print(key_ip, val_names)
-    for name in val_names:
-        print(name)
-        # pass
+for key_ip, val_names in dict_data_nxs_files.items():
+    print(key_ip)
+    print(dict_data_nxs_files[key_ip])
+    print(dict_data_nxs_files_good_names[key_ip])
     print()
-
-
 
 
 
