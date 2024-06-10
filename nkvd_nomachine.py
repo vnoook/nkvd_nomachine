@@ -38,7 +38,7 @@ def get_ip_from_nxs(file: str) -> tuple:
 # функция извлечения из имени файла подстроки до символа "("
 def spliter_name(string_name: str) -> str:
     # print(string_name, '===', string_name.split('(', 1), '===', string_name.split('(', 1)[0])
-    return string_name.split('(', 1)[0]
+    return string_name.rsplit('(', 1)[0]
 
 
 # создаётся эксель
@@ -80,10 +80,16 @@ wb.save(file_xlsx)
 wb.close()
 
 print()
+os.chdir(os.path.join(os.path.dirname(os.path.realpath(__file__)), dir_nxs))
 for key_ip, val_names in dict_data_nxs_files.items():
-    new_name = ' '.join(dict_data_nxs_files_good_names[key_ip]).strip()
-    print(key_ip)
-    # print(dict_data_nxs_files[key_ip])
-    print(dict_data_nxs_files_good_names[key_ip])
-    print(new_name)
-    print()
+    new_name = ' '.join(dict_data_nxs_files_good_names[key_ip]).strip()+'_.nxs'
+    print(val_names)
+    if len(val_names) > 1:
+        for real_file in val_names:
+            if val_names.index(real_file) == 0:
+                print('переименовываю "'+real_file+'" в "'+new_name+'"')
+                os.rename(real_file, new_name)
+            else:
+                print('удаляю', real_file)
+                os.remove(real_file)
+        print()
