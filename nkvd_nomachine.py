@@ -15,7 +15,7 @@ dict_data_nxs_files_good_names = {}
 
 
 # функция чтения файла nxs, формат xml
-def get_ip_from_nxs(file: str) -> tuple:
+def get_ip_from_nxs(file: str) -> list:
     """
     Функция чтения файла nxs (формат xml)
     берёт из файла поле "Server host"
@@ -27,19 +27,38 @@ def get_ip_from_nxs(file: str) -> tuple:
     rez = None
 
     # чтение всех атрибутов в дереве по-очереди
+    # поиск значений адреса "General-Server host" первым
     for branch in root:
         if branch.attrib['name'] == 'General':
             for sub_branch in branch:
                 key = sub_branch.attrib.get('key')
                 val = sub_branch.attrib.get('value')
-                if (key == 'Server host') and val:
-                    rez = (file, sub_branch.attrib.get('value'))
+                if key == 'Server host':
+                    rez = [file, val]
+
+    # поиск значений адреса "Login-User" вторым
+    for branch in root:
+        if branch.attrib['name'] == 'Login':
+            for sub_branch in branch:
+                key = sub_branch.attrib.get('key')
+                val = sub_branch.attrib.get('value')
+                if key == 'User':
+                    rez.append(val)
+
+    # поиск значений адреса "Login-Auth" третьим
+    for branch in root:
+        if branch.attrib['name'] == 'Login':
+            for sub_branch in branch:
+                key = sub_branch.attrib.get('key')
+                val = sub_branch.attrib.get('value')
+                if key == 'Auth':
+                    rez.append(val)
+
     return rez
 
 
 # функция извлечения из имени файла подстроки до символа "("
 def spliter_name(string_name: str) -> str:
-    # print(string_name, '===', string_name.split('(', 1), '===', string_name.split('(', 1)[0])
     return string_name.rsplit('(', 1)[0]
 
 
@@ -90,8 +109,8 @@ for key_ip, val_names in dict_data_nxs_files.items():
         for real_file in val_names:
             if val_names.index(real_file) == 0:
                 print('переименовываю "'+real_file+'" в "'+new_name+'"')
-                os.rename(real_file, new_name)
+                # os.rename(real_file, new_name)
             else:
                 print('удаляю', real_file)
-                os.remove(real_file)
+                # os.remove(real_file)
         print()
