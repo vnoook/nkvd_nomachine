@@ -14,6 +14,20 @@ dict_data_nxs_files = {}
 dict_data_nxs_files_good_names = {}
 
 
+def get_files_nxs(dir_nxs: str) -> list:
+    list_of_files = None
+    for data_of_scan in os.scandir():
+        # если это файл и расширение, то из этого файла берутся данные
+        if data_of_scan.is_file() and os.path.splitext(os.path.split(data_of_scan)[1])[1] == ext_nxs:
+            if not list_of_files:
+                print(full_path_file, full_name_file)
+                full_path_file = data_of_scan.path
+                full_name_file = data_of_scan.name
+                list_of_files.append()
+            else:
+                list_of_files = []
+
+
 # функция чтения файла nxs, формат xml
 def get_ip_from_nxs(file: str) -> list:
     """
@@ -70,6 +84,10 @@ wb_s.append(['IP', 'NAME'])
 # переход в папку для файлов и поиск в ней файлов
 # создание двух словарей - реальные файлы и файлы с нужными названиями для слияний
 os.chdir(os.path.join(os.path.dirname(os.path.realpath(__file__)), dir_nxs))
+
+print(get_files_nxs(dir_nxs))
+exit()
+
 for data_of_scan in os.scandir():
     # если это файл и расширение, то из этого файла берутся данные
     if data_of_scan.is_file() and os.path.splitext(os.path.split(data_of_scan)[1])[1] == ext_nxs:
