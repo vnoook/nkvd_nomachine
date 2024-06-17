@@ -14,18 +14,19 @@ dict_data_nxs_files = {}
 dict_data_nxs_files_good_names = {}
 
 
+# получение файлов с расширением из папки
 def get_files_nxs(dir_nxs: str) -> list:
     list_of_files = None
     for data_of_scan in os.scandir():
         # если это файл и расширение, то из этого файла берутся данные
         if data_of_scan.is_file() and os.path.splitext(os.path.split(data_of_scan)[1])[1] == ext_nxs:
-            if not list_of_files:
-                print(full_path_file, full_name_file)
-                full_path_file = data_of_scan.path
-                full_name_file = data_of_scan.name
-                list_of_files.append()
-            else:
-                list_of_files = []
+            full_name_file = data_of_scan.name
+            print(full_name_file)
+            # if list_of_files:
+            #     list_of_files.append(full_name_file)
+            # else:
+            #     list_of_files = []
+    return list_of_files
 
 
 # функция чтения файла nxs, формат xml
