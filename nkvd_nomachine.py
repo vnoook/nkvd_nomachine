@@ -84,15 +84,15 @@ for data_of_scan in os.scandir():
         if dict_data_nxs_files.get(ip_addr) is None:
             dict_data_nxs_files[ip_addr] = [full_name_file]
         else:
-            if 'Подключение' not in full_name_file:
-                dict_data_nxs_files[ip_addr].append(full_name_file)
+            # if 'Подключение' not in full_name_file:
+            dict_data_nxs_files[ip_addr].append(full_name_file)
 
         # создание и добавление в словарь списка уже подготовленных коротких имён
         if dict_data_nxs_files_good_names.get(ip_addr) is None:
             dict_data_nxs_files_good_names[ip_addr] = {short_name_file}
         else:
-            if 'Подключение' not in short_name_file:
-                dict_data_nxs_files_good_names[ip_addr].add(short_name_file)
+            # if 'Подключение' not in short_name_file:
+            dict_data_nxs_files_good_names[ip_addr].add(short_name_file)
 
         wb_s.append([ip_addr, short_name_file])
 
