@@ -21,11 +21,10 @@ def get_files_nxs(dir_nxs: str) -> list:
         # если это файл и расширение, то из этого файла берутся данные
         if data_of_scan.is_file() and os.path.splitext(os.path.split(data_of_scan)[1])[1] == ext_nxs:
             full_name_file = data_of_scan.name
-            print(full_name_file)
-            # if list_of_files:
-            #     list_of_files.append(full_name_file)
-            # else:
-            #     list_of_files = []
+            if list_of_files is None:
+                list_of_files = []
+            else:
+                list_of_files.append(full_name_file)
     return list_of_files
 
 
@@ -85,35 +84,26 @@ wb_s.append(['IP', 'NAME'])
 # переход в папку для файлов и поиск в ней файлов
 # создание двух словарей - реальные файлы и файлы с нужными названиями для слияний
 os.chdir(os.path.join(os.path.dirname(os.path.realpath(__file__)), dir_nxs))
+for full_name_file in get_files_nxs(dir_nxs):
+    name_file = os.path.splitext(os.path.split(full_name_file)[1])[0]
+    short_name_file = spliter_name(name_file)
+    ip_addr = get_ip_from_nxs(full_name_file)[1].strip()
 
-print(get_files_nxs(dir_nxs))
-exit()
+    # создание словаря с реальными файлами
+    if dict_data_nxs_files.get(ip_addr) is None:
+        dict_data_nxs_files[ip_addr] = [full_name_file]
+    else:
+        # if 'Подключение' not in full_name_file:
+        dict_data_nxs_files[ip_addr].append(full_name_file)
 
-for data_of_scan in os.scandir():
-    # если это файл и расширение, то из этого файла берутся данные
-    if data_of_scan.is_file() and os.path.splitext(os.path.split(data_of_scan)[1])[1] == ext_nxs:
-        # подготовка переменных
-        ip_addr = get_ip_from_nxs(data_of_scan.name)[1].strip()
-        full_path_file = data_of_scan.path
-        full_name_file = data_of_scan.name
-        name_file = os.path.splitext(os.path.split(full_name_file)[1])[0]
-        short_name_file = spliter_name(name_file)
+    # создание и добавление в словарь списка уже подготовленных коротких имён
+    if dict_data_nxs_files_good_names.get(ip_addr) is None:
+        dict_data_nxs_files_good_names[ip_addr] = {short_name_file}
+    else:
+        # if 'Подключение' not in short_name_file:
+        dict_data_nxs_files_good_names[ip_addr].add(short_name_file)
 
-        # создание словаря с реальными файлами
-        if dict_data_nxs_files.get(ip_addr) is None:
-            dict_data_nxs_files[ip_addr] = [full_name_file]
-        else:
-            # if 'Подключение' not in full_name_file:
-            dict_data_nxs_files[ip_addr].append(full_name_file)
-
-        # создание и добавление в словарь списка уже подготовленных коротких имён
-        if dict_data_nxs_files_good_names.get(ip_addr) is None:
-            dict_data_nxs_files_good_names[ip_addr] = {short_name_file}
-        else:
-            # if 'Подключение' not in short_name_file:
-            dict_data_nxs_files_good_names[ip_addr].add(short_name_file)
-
-        wb_s.append([ip_addr, short_name_file])
+    wb_s.append([ip_addr, short_name_file])
 
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 wb.save(file_xlsx)
