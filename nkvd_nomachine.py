@@ -80,9 +80,10 @@ def spliter_name(string_name: str) -> str:
 def contain_names(string_name: str, set_names: set) -> bool:
     answer = False
     for name in set_names:
-        if (string_name in name) and len(string_name) <= len(name):
+        # if (string_name in name) and len(string_name) < len(name):
+        if string_name in name:
             answer = True
-    # print(answer)
+    print(string_name, ' ... ', set_names, ' ... ', answer)
     return answer
 
 
