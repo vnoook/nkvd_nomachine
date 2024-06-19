@@ -15,7 +15,7 @@ dict_data_nxs_files_good_names = {}
 
 
 # получение файлов с расширением из папки
-def get_files_nxs(dir_nxs: str) -> list:
+def get_files_nxs() -> list:
     list_of_files = None
     for data_of_scan in os.scandir():
         # если это файл и расширение, то из этого файла берутся данные
@@ -71,7 +71,7 @@ def get_ip_from_nxs(file: str) -> list:
     return rez
 
 
-# функция извлечения из имени файла подстроки до символа "("
+# функция извлечения из имени файла подстроки до символа кавычек
 def spliter_name(string_name: str) -> str:
     return string_name.rsplit('(', 1)[0]
 
@@ -94,7 +94,7 @@ wb_s.append(['IP', 'NAME'])
 # переход в папку для файлов и поиск в ней файлов
 # создание двух словарей - реальные файлы и файлы с нужными названиями для слияний
 os.chdir(os.path.join(os.path.dirname(os.path.realpath(__file__)), dir_nxs))
-for full_name_file in get_files_nxs(dir_nxs):
+for full_name_file in get_files_nxs():
     name_file = os.path.splitext(os.path.split(full_name_file)[1])[0]
     good_name_file = spliter_name(name_file)
     ip_addr = get_ip_from_nxs(full_name_file)[1].strip()
