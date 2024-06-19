@@ -83,7 +83,6 @@ def contain_name(string_name: str, set_names: set) -> bool:
         # if (string_name in name) and len(string_name) < len(name):
         if string_name in name:
             answer = True
-    # print(answer, ' ... ', string_name, ' ... ', set_names)
     return answer
 
 
@@ -110,18 +109,11 @@ for full_name_file in get_files_nxs(dir_nxs):
     if dict_data_nxs_files_good_names.get(ip_addr) is None:
         dict_data_nxs_files_good_names[ip_addr] = {good_name_file}
     else:
-        # print(ip_addr, ' --- ', good_name_file, ' --- ', dict_data_nxs_files_good_names[ip_addr])
         if 'Подключение' not in good_name_file:
             if not contain_name(good_name_file, dict_data_nxs_files_good_names[ip_addr]):
                 dict_data_nxs_files_good_names[ip_addr].add(good_name_file)
-        # print(dict_data_nxs_files_good_names[ip_addr])
-        # print()
 
     wb_s.append([ip_addr, good_name_file])
-
-# print(dict_data_nxs_files)
-# print(dict_data_nxs_files_good_names)
-# exit()
 
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 wb.save(file_xlsx)
@@ -136,8 +128,8 @@ for key_ip, val_names in dict_data_nxs_files.items():
         for real_file in val_names:
             if val_names.index(real_file) == 0:
                 print('переименовываю "'+real_file+'" в "'+new_name+'"')
-                # os.rename(real_file, new_name)
+                os.rename(real_file, new_name)
             else:
                 print('удаляю', real_file)
-                # os.remove(real_file)
+                os.remove(real_file)
         print()
