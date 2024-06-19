@@ -20,11 +20,11 @@ def get_files_nxs() -> list:
     for data_of_scan in os.scandir():
         # если это файл и расширение, то из этого файла берутся данные
         if data_of_scan.is_file() and os.path.splitext(os.path.split(data_of_scan)[1])[1] == ext_nxs:
-            full_name_file = data_of_scan.name
+            full_name = data_of_scan.name
             if list_of_files is None:
                 list_of_files = []
             else:
-                list_of_files.append(full_name_file)
+                list_of_files.append(full_name)
     return list_of_files
 
 
