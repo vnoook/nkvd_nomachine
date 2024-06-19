@@ -77,13 +77,13 @@ def spliter_name(string_name: str) -> str:
 
 
 # функция поиска вхождения строки в список строк имён
-def contain_names(string_name: str, set_names: set) -> bool:
+def contain_name(string_name: str, set_names: set) -> bool:
     answer = False
     for name in set_names:
         # if (string_name in name) and len(string_name) < len(name):
         if string_name in name:
             answer = True
-    print(string_name, ' ... ', set_names, ' ... ', answer)
+    # print(answer, ' ... ', string_name, ' ... ', set_names)
     return answer
 
 
@@ -110,16 +110,18 @@ for full_name_file in get_files_nxs(dir_nxs):
     if dict_data_nxs_files_good_names.get(ip_addr) is None:
         dict_data_nxs_files_good_names[ip_addr] = {good_name_file}
     else:
-        if contain_names(good_name_file, dict_data_nxs_files_good_names[ip_addr]):
-            if 'Подключение' not in good_name_file:
+        # print(ip_addr, ' --- ', good_name_file, ' --- ', dict_data_nxs_files_good_names[ip_addr])
+        if 'Подключение' not in good_name_file:
+            if not contain_name(good_name_file, dict_data_nxs_files_good_names[ip_addr]):
                 dict_data_nxs_files_good_names[ip_addr].add(good_name_file)
-
+        # print(dict_data_nxs_files_good_names[ip_addr])
+        # print()
 
     wb_s.append([ip_addr, good_name_file])
 
-print(dict_data_nxs_files)
-print(dict_data_nxs_files_good_names)
-exit()
+# print(dict_data_nxs_files)
+# print(dict_data_nxs_files_good_names)
+# exit()
 
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 wb.save(file_xlsx)
