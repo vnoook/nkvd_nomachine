@@ -1,9 +1,7 @@
-# <option key="Auth" value="OSn+Fy.Ml#?]s1Of$BPr4D_w@Si&amp;K]t4VQ" />
-# <option key="User" value="user" />
-# PASS = '  <option key="Auth" value="OSn+Fy.Ml#?]s1Of$BPr4D_w@Si&amp;K]t4VQ" />\n'
-# KEY1 = '  <option key="User" value="a_oividutov" />\n'
-# KEY2 = '  <option key="User" value="master" />\n'
-# RES = '  <option key="User" value="user" />\n'
+# '  <option key="User" value="a_oividutov" />'
+# '  <option key="User" value="master" />'
+# '  <option key="User" value="user" />'
+# '  <option key="Auth" value="C:GSb+0BRYhy%3EM[ln%7:HSkry+CHQavE" />'
 
 import os
 import chardet
@@ -46,15 +44,18 @@ for full_name_nxs_file in get_files_nxs():
     print(full_name_nxs_file, ',', get_codepage(full_name_nxs_file))
     flag_edit_file = False
 
+    # читаю файл построчно, ищу строку с логинами a_oividutov или master
+    # заменяю строку логина на user, а предыдущую на пароль от user
+    with open(full_name_nxs_file, encoding=get_codepage(full_name_nxs_file)) as nxs_file:
+        list_each_string_of_file = nxs_file.read().splitlines()
 
-# # чтение построчно файла
-# with open(full_name_nxs_file, encoding='cp1251', newline='') as nxs_file:
-#     row_csv_content = csv.reader(csvfile, delimiter=';')
+    print(list_each_string_of_file)
+    exit()
+
+# end
 
 # with open(filename, 'r') as file_html:
 #     all_strings_file = file_html.read()
 
 # with open(filename.text(), 'r') as file_html:
 #     list_each_string_of_file = file_html.read().splitlines()
-
-# end
