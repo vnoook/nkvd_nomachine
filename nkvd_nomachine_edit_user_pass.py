@@ -11,12 +11,14 @@ ext_nxs = '.nxs'
 flag_edit_file = False
 
 
-# получение файлов с расширением из папки
+# получение файлов с расширением из текущей папки
 def get_files_nxs() -> list:
     list_of_files = None
     for data_of_scan in os.scandir():
-        # если это файл и расширение nxs, то этот файл добавляется в список
-        if data_of_scan.is_file() and os.path.splitext(os.path.split(data_of_scan)[1])[1] == ext_nxs:
+        # расширение файла
+        ext_file = os.path.splitext(os.path.split(data_of_scan)[1])[1]
+        # если это файл и нужное расширение, то этот файл добавляется в список
+        if data_of_scan.is_file() and ext_file == ext_nxs:
             full_name = data_of_scan.name
             if list_of_files is None:
                 list_of_files = []
@@ -47,9 +49,12 @@ for full_name_nxs_file in get_files_nxs():
     # читаю файл построчно, ищу строку с логинами a_oividutov или master
     # заменяю строку логина на user, а предыдущую на пароль от user
     with open(full_name_nxs_file, encoding=get_codepage(full_name_nxs_file)) as nxs_file:
+        # НЕ сохраняя символы в конце строки и переносы
         list_each_string_of_file = nxs_file.read().splitlines()
-
+        # сохраняя символы в конце строки и переносы
+        # list_each_string_of_file = nxs_file.readlines()
     print(list_each_string_of_file)
+
     exit()
 
 # end
