@@ -4,11 +4,14 @@
 # '  <option key="Auth" value="C:GSb+0BRYhy%3EM[ln%7:HSkry+CHQavE" />'
 
 import os
+from random import sample
+
 import chardet
 
 dir_nxs = r'res/'
 ext_nxs = '.nxs'
 flag_edit_file = False
+sample1 = '  <option key="User" value="a_oividutov" />'
 
 
 # получение файлов с расширением из текущей папки
@@ -47,18 +50,22 @@ for full_name_nxs_file in get_files_nxs():
     # флаг нужности редактирования файла
     flag_edit_file = False
 
-    # читаю файл построчно
+    # читаю файл в список
     with open(full_name_nxs_file, encoding=get_codepage(full_name_nxs_file)) as nxs_file:
         # НЕ сохраняя символы в конце строки и переносы
         list_each_string_of_file = nxs_file.read().splitlines()
-        # сохраняя символы в конце строки и переносы
+
+        # # сохраняя символы в конце строки и переносы
         # list_each_string_of_file = nxs_file.readlines()
-    print(list_each_string_of_file)
 
     # ищу строку с логинами a_oividutov или master
-    # заменяю строку логина на user, а предыдущую на пароль от user
+    for each_string in list_each_string_of_file:
+        if sample1 == each_string:
+            print(each_string)
 
-    exit()
+print(*list_each_string_of_file, end='\n', sep='\n')
+
+    # заменяю строку логина на user, а предыдущую на пароль от user
 
 # end
 
