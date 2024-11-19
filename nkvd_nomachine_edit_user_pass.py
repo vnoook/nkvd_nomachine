@@ -41,19 +41,22 @@ def get_codepage(one_file):
 
 # переход в папку для файлов
 os.chdir(os.path.join(os.path.dirname(os.path.realpath(__file__)), dir_nxs))
-# и поиск в ней файлов
+
+# обрабатываются файлы по списку из папки
 for full_name_nxs_file in get_files_nxs():
-    print(full_name_nxs_file, ',', get_codepage(full_name_nxs_file))
+    # флаг нужности редактирования файла
     flag_edit_file = False
 
-    # читаю файл построчно, ищу строку с логинами a_oividutov или master
-    # заменяю строку логина на user, а предыдущую на пароль от user
+    # читаю файл построчно
     with open(full_name_nxs_file, encoding=get_codepage(full_name_nxs_file)) as nxs_file:
         # НЕ сохраняя символы в конце строки и переносы
         list_each_string_of_file = nxs_file.read().splitlines()
         # сохраняя символы в конце строки и переносы
         # list_each_string_of_file = nxs_file.readlines()
     print(list_each_string_of_file)
+
+    # ищу строку с логинами a_oividutov или master
+    # заменяю строку логина на user, а предыдущую на пароль от user
 
     exit()
 
