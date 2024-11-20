@@ -4,8 +4,6 @@
 # '  <option key="Auth" value="C:GSb+0BRYhy%3EM[ln%7:HSkry+CHQavE" />'
 
 import os
-from random import sample
-
 import chardet
 
 dir_nxs = r'res/'
@@ -61,11 +59,12 @@ for full_name_nxs_file in get_files_nxs():
     # ищу строку с логинами a_oividutov или master
     for each_string in list_each_string_of_file:
         if sample1 == each_string:
-            print(each_string)
+            print(full_name_nxs_file, each_string)
 
-print(*list_each_string_of_file, end='\n', sep='\n')
+# print()
+# print(*list_each_string_of_file, end='\n', sep='\n')
 
-    # заменяю строку логина на user, а предыдущую на пароль от user
+# заменяю строку логина на user, а предыдущую на пароль от user
 
 # end
 
