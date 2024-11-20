@@ -50,10 +50,9 @@ for full_name_nxs_file in get_files_nxs():
 
     # читаю файл в список
     with open(full_name_nxs_file, encoding=get_codepage(full_name_nxs_file)) as nxs_file:
-        # НЕ сохраняя символы в конце строки и переносы
+        # НЕ сохраняя символы конца строки
         list_each_string_of_file = nxs_file.read().splitlines()
-
-        # # сохраняя символы в конце строки и переносы
+        # # сохраняя символы конца строки
         # list_each_string_of_file = nxs_file.readlines()
 
     # ищу строку с логинами a_oividutov или master
