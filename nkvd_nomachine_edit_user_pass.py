@@ -10,7 +10,6 @@ import xml.etree.ElementTree as ET
 
 dir_nxs = r'res/'
 ext_nxs = '.nxs'
-flag_edit_file = False
 
 
 # получение файлов с расширением из текущей папки
@@ -41,12 +40,11 @@ def get_codepage(one_file):
     return detector.result['encoding']
 
 
-# функция чтения файла nxs, формат xml
+# чтение некоторых атрибутов из файла nxs, формат xml
 def get_ip_from_nxs(file: str) -> list:
     """
     Функция чтения файла nxs (формат xml)
     """
-
     tree = ET.parse(file)
     root = tree.getroot()
     rez = None
@@ -75,37 +73,15 @@ def get_ip_from_nxs(file: str) -> list:
 
 # переход в папку для файлов
 os.chdir(os.path.join(os.path.dirname(os.path.realpath(__file__)), dir_nxs))
-# получение списка файлов nxs в папке
-list_of_files = get_files_nxs()
 
-print(list_of_files)
-exit
+# получение списка файлов nxs в папке
+list_of_nxs_files = get_files_nxs()
 
 # обрабатываются файлы по списку из папки
-for full_name_nxs_file in list_of_files:
-    # флаг нужности редактирования файла
-    flag_edit_file = False
-
-    # # читаю файл в список
-    # with open(full_name_nxs_file, encoding=get_codepage(full_name_nxs_file)) as nxs_file:
-    #     # НЕ сохраняя символы конца строки
-    #     list_each_string_of_file = nxs_file.read().splitlines()
-    #     # # сохраняя символы конца строки
-    #     # list_each_string_of_file = nxs_file.readlines()
-
+for full_name_nxs_file in list_of_nxs_files:
     print(get_ip_from_nxs(full_name_nxs_file))
 
 
-
-    # print()
-    # print(*list_each_string_of_file, end='\n', sep='\n')
-    # print(list_each_string_of_file)
-
-    # exit()
-
-# заменяю строку логина на user, а предыдущую на пароль от user
-
-# end
 
 # with open(filename, 'r') as file_html:
 #     all_strings_file = file_html.read()
@@ -113,7 +89,9 @@ for full_name_nxs_file in list_of_files:
 # with open(filename.text(), 'r') as file_html:
 #     list_each_string_of_file = file_html.read().splitlines()
 
-    # # ищу строку с логинами a_oividutov или master
-    # for each_string in list_each_string_of_file:
-    #     if sample1 == each_string:
-    #         print(full_name_nxs_file, each_string)
+# # читаю файл в список
+# with open(full_name_nxs_file, encoding=get_codepage(full_name_nxs_file)) as nxs_file:
+#     # НЕ сохраняя символы конца строки
+#     list_each_string_of_file = nxs_file.read().splitlines()
+#     # # сохраняя символы конца строки
+#     # list_each_string_of_file = nxs_file.readlines()
