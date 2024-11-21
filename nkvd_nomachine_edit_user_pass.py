@@ -10,6 +10,8 @@ import xml.etree.ElementTree as ET
 
 dir_nxs = r'res/'
 ext_nxs = '.nxs'
+reserved_users = ('user', 'pi', 'adminsec', 'video')
+list_files_with_attr = []
 
 
 # получение файлов с расширением из текущей папки
@@ -41,7 +43,7 @@ def get_codepage(one_file):
 
 
 # чтение некоторых атрибутов из файла nxs, формат xml
-def get_ip_from_nxs(file: str) -> list:
+def get_userpass_from_nxs(file: str) -> list:
     """
     Функция чтения файла nxs (формат xml)
     """
@@ -77,9 +79,13 @@ os.chdir(os.path.join(os.path.dirname(os.path.realpath(__file__)), dir_nxs))
 # получение списка файлов nxs в папке
 list_of_nxs_files = get_files_nxs()
 
-# обрабатываются файлы по списку из папки
+# обрабатываются файлы по списку из папки и формируется список списков
 for full_name_nxs_file in list_of_nxs_files:
-    print(get_ip_from_nxs(full_name_nxs_file))
+    list_files_with_attr.append(get_userpass_from_nxs(full_name_nxs_file))
+
+for k in list_files_with_attr:
+    if k[1] not in reserved_users:
+        print(k[1], k[0])
 
 
 
