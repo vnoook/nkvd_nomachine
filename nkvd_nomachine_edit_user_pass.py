@@ -26,7 +26,7 @@ def get_files_nxs() -> list:
 
 
 # получение кодировки файла
-def get_codepage(one_file):
+def get_codepage(one_file: str):
     detector = chardet.universaldetector.UniversalDetector()
     with open(one_file, 'rb') as fh:
         for line in fh:
@@ -64,7 +64,6 @@ def get_userpass_from_nxs(file: str) -> list:
                 val = sub_branch.attrib.get('value')
                 if key == 'Auth':
                     rez.append(val)
-
     return rez
 
 
@@ -91,7 +90,7 @@ def edit_userpass_nxs(file: str):
                     line_prepender(file)
 
 
-def line_prepender(filename):
+def line_prepender(filename: str):
     doctype = '<!DOCTYPE NXClientSettings>'
     with open(filename, 'r+') as f:
         content = f.read()
