@@ -90,11 +90,12 @@ def edit_userpass_nxs(file: str):
                     # sub_branch.attrib['value'] = '222'
                     flag_edited = True
                 if key == 'Auth':
-                    sub_branch.set('value', r"-gZPFTA;5#upbTOA80urkULA@0zqp]OFE/")
+                    sub_branch.set('value', "-gZPFTA;5#upbTOA80urkULA@0zqp]OFE/")
                     # sub_branch.attrib['value'] = '222'
                     flag_edited = True
 
                 if flag_edited:
+                    tree.write('<!DOCTYPE NXClientSettings>')
                     tree.write(file)
 
 # '   <option key="User" value="user" />'
