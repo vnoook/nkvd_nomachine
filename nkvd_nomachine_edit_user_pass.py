@@ -1,7 +1,7 @@
 # '  <option key="User" value="a_oividutov" />'
 # '  <option key="User" value="master" />'
-# '  <option key="User" value="user" />'
-# '  <option key="Auth" value="C:GSb+0BRYhy%3EM[ln%7:HSkry+CHQavE" />'
+# '   <option key="User" value="user" />'
+# '  <option key="Auth" value="b|O}P>c:m:iAk&lt;p?oDhBs&lt;l>uCl@wCnByd" />'
 
 import os
 import chardet
@@ -77,15 +77,28 @@ def get_userpass_from_nxs(file: str) -> list:
 def edit_userpass_nxs(file: str):
     tree = ET.parse(file)
     root = tree.getroot()
+    flag_edited = False
 
     for branch in root:
         if branch.attrib['name'] == 'Login':
             for sub_branch in branch:
                 key = sub_branch.attrib.get('key')
                 # val = sub_branch.attrib.get('value')
+                # val = sub_branch.attrib['value']
                 if key == 'User':
-                    sub_branch.set('value', '111')
+                    sub_branch.set('value', 'user')
+                    # sub_branch.attrib['value'] = '222'
+                    flag_edited = True
+                if key == 'Auth':
+                    sub_branch.set('value', r"-gZPFTA;5#upbTOA80urkULA@0zqp]OFE/")
+                    # sub_branch.attrib['value'] = '222'
+                    flag_edited = True
+
+                if flag_edited:
                     tree.write(file)
+
+# '   <option key="User" value="user" />'
+# '  <option key="Auth" value="b|O}P>c:m:iAk&lt;p?oDhBs&lt;l>uCl@wCnByd" />'
 
 
 # переход в папку для файлов
