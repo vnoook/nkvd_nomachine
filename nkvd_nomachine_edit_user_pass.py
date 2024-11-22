@@ -99,8 +99,6 @@ def line_prepender(filename):
         f.write(doctype.rstrip('\r\n') + '\n' + content)
 
 
-
-
 # переход в папку для файлов
 os.chdir(os.path.join(os.path.dirname(os.path.realpath(__file__)), dir_nxs))
 
@@ -115,17 +113,4 @@ for k in list_files_with_attr:
     if k[1] not in reserved_users:
         # print(k[1], ' ....... ', k[0])
         edit_userpass_nxs(k[0])
-        print('обработал файл - ', k[0])
-
-# with open(filename, 'r') as file_html:
-#     all_strings_file = file_html.read()
-
-# with open(filename.text(), 'r') as file_html:
-#     list_each_string_of_file = file_html.read().splitlines()
-
-# # читаю файл в список
-# with open(full_name_nxs_file, encoding=get_codepage(full_name_nxs_file)) as nxs_file:
-#     # НЕ сохраняя символы конца строки
-#     list_each_string_of_file = nxs_file.read().splitlines()
-#     # # сохраняя символы конца строки
-#     # list_each_string_of_file = nxs_file.readlines()
+        print('обработан файл - ', k[0])
