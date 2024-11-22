@@ -73,6 +73,32 @@ def get_userpass_from_nxs(file: str) -> list:
     return rez
 
 
+# редактирование атрибутов файла nxs, формат xml
+def edit_userpass_nxs(file: str):
+    tree = ET.parse(file)
+    root = tree.getroot()
+
+    for elem in root.iter('User'):
+        print()
+        print(elem)
+        print(elem.text)
+        print(elem.attrib)
+        print(elem.keys())
+
+        elem.set('User', '111')
+        elem.text = 'new_text'
+    tree.write(file)
+
+    # for elem in root.iter('tag_name'):
+    #     elem.set('attribute_name', 'new_value')
+    #     elem.text = 'new_text'
+
+    # for rank in root.iter('Login'):
+    #     rank.text = str(new_rank)
+    #     rank.set('updated', 'yes')
+    # tree.write(file)
+
+
 # переход в папку для файлов
 os.chdir(os.path.join(os.path.dirname(os.path.realpath(__file__)), dir_nxs))
 
@@ -85,9 +111,10 @@ for full_name_nxs_file in list_of_nxs_files:
 
 for k in list_files_with_attr:
     if k[1] not in reserved_users:
-        print(k[1], k[0])
+        # print(k[1], ' ....... ', k[0])
+        pass
 
-
+edit_userpass_nxs('131.nxs')
 
 # with open(filename, 'r') as file_html:
 #     all_strings_file = file_html.read()
