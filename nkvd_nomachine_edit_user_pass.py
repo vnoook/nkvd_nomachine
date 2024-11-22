@@ -78,25 +78,14 @@ def edit_userpass_nxs(file: str):
     tree = ET.parse(file)
     root = tree.getroot()
 
-    for elem in root.iter('User'):
-        print()
-        print(elem)
-        print(elem.text)
-        print(elem.attrib)
-        print(elem.keys())
-
-        elem.set('User', '111')
-        elem.text = 'new_text'
-    tree.write(file)
-
-    # for elem in root.iter('tag_name'):
-    #     elem.set('attribute_name', 'new_value')
-    #     elem.text = 'new_text'
-
-    # for rank in root.iter('Login'):
-    #     rank.text = str(new_rank)
-    #     rank.set('updated', 'yes')
-    # tree.write(file)
+    for branch in root:
+        if branch.attrib['name'] == 'Login':
+            for sub_branch in branch:
+                key = sub_branch.attrib.get('key')
+                # val = sub_branch.attrib.get('value')
+                if key == 'User':
+                    sub_branch.set('value', '111')
+                    tree.write(file)
 
 
 # переход в папку для файлов
@@ -114,7 +103,7 @@ for k in list_files_with_attr:
         # print(k[1], ' ....... ', k[0])
         pass
 
-edit_userpass_nxs('131.nxs')
+edit_userpass_nxs('test korobka.nxs')
 
 # with open(filename, 'r') as file_html:
 #     all_strings_file = file_html.read()
