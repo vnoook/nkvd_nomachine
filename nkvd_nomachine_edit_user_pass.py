@@ -1,8 +1,3 @@
-# '  <option key="User" value="a_oividutov" />'
-# '  <option key="User" value="master" />'
-# '   <option key="User" value="user" />'
-# '  <option key="Auth" value="b|O}P>c:m:iAk&lt;p?oDhBs&lt;l>uCl@wCnByd" />'
-
 import os
 import chardet
 import xml.etree.ElementTree as ET
@@ -83,23 +78,27 @@ def edit_userpass_nxs(file: str):
         if branch.attrib['name'] == 'Login':
             for sub_branch in branch:
                 key = sub_branch.attrib.get('key')
-                # val = sub_branch.attrib.get('value')
-                # val = sub_branch.attrib['value']
                 if key == 'User':
                     sub_branch.set('value', 'user')
                     # sub_branch.attrib['value'] = '222'
                     flag_edited = True
                 if key == 'Auth':
-                    sub_branch.set('value', "-gZPFTA;5#upbTOA80urkULA@0zqp]OFE/")
-                    # sub_branch.attrib['value'] = '222'
+                    sub_branch.set('value', r"-gZPFTA;5#upbTOA80urkULA@0zqp]OFE/")
                     flag_edited = True
 
                 if flag_edited:
-                    tree.write('<!DOCTYPE NXClientSettings>')
                     tree.write(file)
+                    line_prepender(file)
 
-# '   <option key="User" value="user" />'
-# '  <option key="Auth" value="b|O}P>c:m:iAk&lt;p?oDhBs&lt;l>uCl@wCnByd" />'
+
+def line_prepender(filename):
+    doctype = '<!DOCTYPE NXClientSettings>'
+    with open(filename, 'r+') as f:
+        content = f.read()
+        f.seek(0, 0)
+        f.write(doctype.rstrip('\r\n') + '\n' + content)
+
+
 
 
 # переход в папку для файлов
@@ -115,9 +114,8 @@ for full_name_nxs_file in list_of_nxs_files:
 for k in list_files_with_attr:
     if k[1] not in reserved_users:
         # print(k[1], ' ....... ', k[0])
-        pass
-
-edit_userpass_nxs('test korobka.nxs')
+        edit_userpass_nxs(k[0])
+        print('обработал файл - ', k[0])
 
 # with open(filename, 'r') as file_html:
 #     all_strings_file = file_html.read()
