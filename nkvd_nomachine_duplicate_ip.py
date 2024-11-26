@@ -67,8 +67,9 @@ else:
         else:
             dict_of_nxs_files[ip_addr] = [full_name_file]
 
+print()
 for k,v in dict_of_nxs_files.items():
     print(k, v)
-    if v:
-        if len(v) > 1:
-            print(v, k, sep=' ... ')
+    # if v:
+    #     if len(v) > 1:
+    #         print(v, k, sep=' ... ')
