@@ -7,6 +7,7 @@ import xml.etree.ElementTree as ET
 dir_nxs = r'res/'
 ext_nxs = '.nxs'
 list_of_nxs_files = []
+dict_of_nxs_files = {}
 
 
 # получение файлов с расширением из текущей папки
@@ -52,29 +53,25 @@ os.chdir(os.path.join(os.path.dirname(os.path.realpath(__file__)), dir_nxs))
 
 # получение списка файлов nxs в текущей папке
 list_of_nxs_files = get_files_nxs()
+list_of_dublicate_files = []
 
-# обработка списка файлов
 # если в папке есть файлы, то искать в них адрес и считать их количество чтобы найти дублированные
-if list_of_nxs_files:
-    for full_name_file in list_of_nxs_files:
-        ip_addr = get_ip_from_nxs(full_name_file)[1].strip()
-        print(ip_addr, full_name_file, sep=' ... ')
-else:
+if not list_of_nxs_files:
     print()
     print('файлы nxs в папке не найдены')
+else:
+    for full_name_file in list_of_nxs_files:
+        ip_addr = get_ip_from_nxs(full_name_file)[1].strip()
+        # print(ip_addr, full_name_file, sep=' ... ')
+        if dict_of_nxs_files.get(ip_addr):
+            dict_of_nxs_files[ip_addr] = dict_of_nxs_files[ip_addr] + 1
+            list_of_dublicate_files.append(full_name_file)
+        else:
+            dict_of_nxs_files[ip_addr] = 1
 
+for k,v in dict_of_nxs_files.items():
+    if v > 1:
+        print(v, k, sep=' ... ')
 
-# print()
-# os.chdir(os.path.join(os.path.dirname(os.path.realpath(__file__)), dir_nxs))
-# for key_ip, val_names in dict_data_nxs_files.items():
-#     new_name = ' '.join(dict_data_nxs_files_good_names[key_ip]).strip()+'_.nxs'
-#     print(val_names)
-#     if len(val_names) > 1:
-#         for real_file in val_names:
-#             if val_names.index(real_file) == 0:
-#                 print('переименовываю "'+real_file+'" в "'+new_name+'"')
-#                 os.rename(real_file, new_name)
-#             else:
-#                 print('удаляю', real_file)
-#                 os.remove(real_file)
-#         print()
+print()
+print(*list_of_dublicate_files, sep='\n')
