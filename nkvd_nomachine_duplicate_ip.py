@@ -24,7 +24,7 @@ def get_files_nxs() -> list:
     return list_of_files
 
 
-# функция чтения файла nxs, формат xml
+# функция получения ip адреса из файла nxs, формат xml
 def get_ip_from_nxs(file: str) -> list:
     """
     Функция чтения файла nxs (формат xml)
@@ -34,7 +34,7 @@ def get_ip_from_nxs(file: str) -> list:
 
     tree = ET.parse(file)
     root = tree.getroot()
-    rez = None
+    rez = 0
 
     # чтение всех атрибутов в дереве по-очереди
     # поиск значений адреса "General-Server host" первым
@@ -53,7 +53,6 @@ os.chdir(os.path.join(os.path.dirname(os.path.realpath(__file__)), dir_nxs))
 
 # получение списка файлов nxs в текущей папке
 list_of_nxs_files = get_files_nxs()
-list_of_dublicate_files = []
 
 # если в папке есть файлы, то искать в них адрес и считать их количество чтобы найти дублированные
 if not list_of_nxs_files:
@@ -64,14 +63,12 @@ else:
         ip_addr = get_ip_from_nxs(full_name_file)[1].strip()
         # print(ip_addr, full_name_file, sep=' ... ')
         if dict_of_nxs_files.get(ip_addr):
-            dict_of_nxs_files[ip_addr] = dict_of_nxs_files[ip_addr] + 1
-            list_of_dublicate_files.append(full_name_file)
+            dict_of_nxs_files[ip_addr] = dict_of_nxs_files[ip_addr].append(full_name_file)
         else:
-            dict_of_nxs_files[ip_addr] = 1
+            dict_of_nxs_files[ip_addr] = [full_name_file]
 
 for k,v in dict_of_nxs_files.items():
-    if v > 1:
-        print(v, k, sep=' ... ')
-
-print()
-print(*list_of_dublicate_files, sep='\n')
+    print(k, v)
+    if v:
+        if len(v) > 1:
+            print(v, k, sep=' ... ')
