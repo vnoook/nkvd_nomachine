@@ -54,24 +54,29 @@ os.chdir(os.path.join(os.path.dirname(os.path.realpath(__file__)), dir_nxs))
 # получение списка файлов nxs в текущей папке
 list_of_nxs_files = get_files_nxs()
 
-# если в папке есть файлы, то искать в них адрес и считать их количество чтобы найти дублированные
+# если в папке есть файлы, то искать в них адрес и считать их количество, чтобы найти дублированные
 if not list_of_nxs_files:
     print()
     print('файлы nxs в папке не найдены')
 else:
     for full_name_file in list_of_nxs_files:
         ip_addr = get_ip_from_nxs(full_name_file)[1].strip()
-        print(f'{full_name_file = }')
-        print(f'{ip_addr = }')
+        # print(f'{full_name_file = }')
+        # print(f'{ip_addr = }')
 
         if dict_of_nxs_files.get(ip_addr):
-            dict_of_nxs_files[ip_addr] = dict_of_nxs_files[ip_addr].append(full_name_file)
+            temp_list = dict_of_nxs_files[ip_addr]
+            # print(temp_list)
+            temp_list.append(full_name_file)
+            # print(temp_list)
+            # print()
+            dict_of_nxs_files[ip_addr] = temp_list
         else:
             dict_of_nxs_files[ip_addr] = [full_name_file]
-        print()
+        # print()
 
-# for k,v in dict_of_nxs_files.items():
-#     print(k, v)
-#     # if v:
-#     #     if len(v) > 1:
-#     #         print(v, k, sep=' ... ')
+for k,v in dict_of_nxs_files.items():
+    # print(k, v)
+    if v:
+        if len(v) > 1:
+            print(k, v, sep=' ... ')
