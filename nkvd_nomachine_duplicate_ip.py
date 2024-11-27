@@ -61,15 +61,17 @@ if not list_of_nxs_files:
 else:
     for full_name_file in list_of_nxs_files:
         ip_addr = get_ip_from_nxs(full_name_file)[1].strip()
+        print(f'{full_name_file = }')
+        print(f'{ip_addr = }')
 
         if dict_of_nxs_files.get(ip_addr):
             dict_of_nxs_files[ip_addr] = dict_of_nxs_files[ip_addr].append(full_name_file)
         else:
             dict_of_nxs_files[ip_addr] = [full_name_file]
+        print()
 
-print()
-for k,v in dict_of_nxs_files.items():
-    print(k, v)
-    # if v:
-    #     if len(v) > 1:
-    #         print(v, k, sep=' ... ')
+# for k,v in dict_of_nxs_files.items():
+#     print(k, v)
+#     # if v:
+#     #     if len(v) > 1:
+#     #         print(v, k, sep=' ... ')
