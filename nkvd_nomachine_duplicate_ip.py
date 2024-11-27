@@ -16,11 +16,11 @@ def get_files_nxs() -> list:
     for data_of_scan in os.scandir():
         # если это файл и расширение, то из этого файла берутся данные
         if data_of_scan.is_file() and os.path.splitext(os.path.split(data_of_scan)[1])[1] == ext_nxs:
-            full_name = data_of_scan.name
+            filename = data_of_scan.name
             if list_of_files is None:
-                list_of_files = []
+                list_of_files = [filename]
             else:
-                list_of_files.append(full_name)
+                list_of_files.append(filename)
     return list_of_files
 
 
@@ -61,11 +61,14 @@ if not list_of_nxs_files:
 else:
     for full_name_file in list_of_nxs_files:
         ip_addr = get_ip_from_nxs(full_name_file)[1].strip()
-        # print(ip_addr, full_name_file, sep=' ... ')
-        if dict_of_nxs_files.get(ip_addr):
-            dict_of_nxs_files[ip_addr] = dict_of_nxs_files[ip_addr].append(full_name_file)
-        else:
-            dict_of_nxs_files[ip_addr] = [full_name_file]
+        print(ip_addr, full_name_file, sep=' ... ')
+
+        # if dict_of_nxs_files.get(ip_addr):
+        #     # dict_of_nxs_files[ip_addr] = dict_of_nxs_files[ip_addr].append(full_name_file)
+        #     dict_of_nxs_files[ip_addr] = dict_of_nxs_files[ip_addr]
+        #     print(1)
+        # else:
+        #     dict_of_nxs_files[ip_addr] = ()
 
 print()
 for k,v in dict_of_nxs_files.items():
