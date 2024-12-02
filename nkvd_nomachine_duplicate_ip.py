@@ -2,7 +2,7 @@
 # например, группа <group name="General" > и строка "<option key="Server host" value="172.16.40.30" />"
 
 import os
-import xml.etree.ElementTree as ET
+import xml.etree.ElementTree as et
 
 dir_nxs = r'res/'
 ext_nxs = '.nxs'
@@ -32,7 +32,7 @@ def get_ip_from_nxs(file: str) -> list:
     выдаёт кортеж - файл в котором ищется и ИП-адрес подключения
     """
 
-    tree = ET.parse(file)
+    tree = et.parse(file)
     root = tree.getroot()
     rez = 0
 
@@ -67,7 +67,7 @@ else:
             dict_of_nxs_files[ip_addr] = [full_name_file]
 
 flag_double = False
-for k,v in dict_of_nxs_files.items():
+for k, v in dict_of_nxs_files.items():
     if len(v) > 1:
         print(k, v, sep=' ... ')
         flag_double = True
