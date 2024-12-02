@@ -66,7 +66,12 @@ else:
         else:
             dict_of_nxs_files[ip_addr] = [full_name_file]
 
+flag_double = False
 for k,v in dict_of_nxs_files.items():
-    if v:
-        if len(v) > 1:
-            print(k, v, sep=' ... ')
+    if len(v) > 1:
+        print(k, v, sep=' ... ')
+        flag_double = True
+
+if not flag_double:
+    print()
+    print('в папке нет файлов с задвоенными ip-адресами')
