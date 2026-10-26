@@ -5,7 +5,7 @@ import xml.etree.ElementTree as ET
 
 dir_nxs = r'res/'
 ext_nxs = '.nxs'
-reserved_users = ('user', 'pi', 'adminsec', 'video')
+reserved_users = ('pi', 'video')
 list_files_with_attr = []
 
 
@@ -78,13 +78,13 @@ def edit_userpass_nxs(file: str):
             for sub_branch in branch:
                 key = sub_branch.attrib.get('key')
                 if key == 'User':
-                    sub_branch.set('value', 'user')
-                    # sub_branch.attrib['value'] = '222'
+                    # внимательно смотреть при вставке из файла nsx, могут замениться мнемоникой
+                    sub_branch.set('value', 'master')
                     flag_edited = True
                 if key == 'Auth':
-                    sub_branch.set('value', r"-gZPFTA;5#upbTOA80urkULA@0zqp]OFE/")
+                    # внимательно смотреть при вставке из файла nsx, могут замениться мнемоникой
+                    sub_branch.set('value', r"111111111111")
                     flag_edited = True
-
                 if flag_edited:
                     tree.write(file)
                     line_prepender(file)
@@ -109,6 +109,7 @@ for full_name_nxs_file in list_of_nxs_files:
     list_files_with_attr.append(get_userpass_from_nxs(full_name_nxs_file))
 
 for k in list_files_with_attr:
+    # print(k[1], ' ....... ', k[0])
     if k[1] not in reserved_users:
         # print(k[1], ' ....... ', k[0])
         edit_userpass_nxs(k[0])
